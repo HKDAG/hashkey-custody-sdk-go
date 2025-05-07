@@ -364,6 +364,37 @@ func runCommand(arguments docopt.Opts) (*sdk.Result, error) {
 		}
 
 		return getKYC(addr, key, secret).ApplicationSubmit(params[0])
+	case "GetFinanceOrders":
+		if len(params) != 2 {
+			return nil, errors.New("invalid params")
+		}
+		page, err := strconv.Atoi(params[0])
+		if err != nil {
+			return nil, errors.New("invalid params")
+		}
+		amount, err := strconv.Atoi(params[1])
+		if err != nil {
+			return nil, errors.New("invalid params")
+		}
+		request := map[string]interface{}{}
+		request["page"] = page
+		request["pageSize"] = amount
+
+		return getCompany(addr, key, secret).GetFinanceOrders(request)
+	case "GetFinanceReport":
+		if len(params) != 2 {
+			return nil, errors.New("invalid params")
+		}
+		page, err := strconv.Atoi(params[0])
+		if err != nil {
+			return nil, errors.New("invalid params")
+		}
+		amount, err := strconv.Atoi(params[1])
+		if err != nil {
+			return nil, errors.New("invalid params")
+		}
+		return getCompany(addr, key, secret).GetFinanceReport(map[string]interface{}{"page": page, "pageSize": amount})
+
 	default:
 		return nil, errors.New("unknown action: " + action)
 	}

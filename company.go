@@ -187,6 +187,16 @@ func (c *Company) OTCCustomerGetSymbols() (*Result, error) {
 	return c.session.get("/api/v1/otc/customer/symbols")
 }
 
+// GetOrders get orders in the wallet.
+func (c *Company) GetFinanceOrders(params map[string]interface{}) (*Result, error) {
+	return c.session.getWithParams("/api/v1/finance/orders", params)
+}
+
+// GetFinanceOrder get order by id.
+func (c *Company) GetFinanceReport(params map[string]interface{}) (*Result, error) {
+	return c.session.getWithParams("/api/v1/finance/reports", params)
+}
+
 // Company represent a company.
 type Company struct {
 	Addr   string
